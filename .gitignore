@@ -85,3 +85,14 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+app/config/config.yml
+app/config/config_dev.yml
+UPGRADE-2.2.md
+UPGRADE-2.4.md
+app/config/config_prod.yml
+UPGRADE.md
+UPGRADE-2.3.md
+app/config/config_test.yml
+app/config/security.yml
+app/config/parameters.yml.dist
+app/config/parameters.yml~
