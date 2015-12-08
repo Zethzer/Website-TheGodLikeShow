@@ -1,0 +1,50 @@
+<div class="well">
+  <form method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" />
+  </form>
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+			var $container = $('div#zethzer_newsbundle_news_categories');
+
+			var $addLink = $('<a href="#" id="add_category">Ajouter une catégorie</a>');
+			$container.append($addLink);
+
+			$addLink.click(function(e){
+				addCategory($container);
+				e.preventDefault();
+				return false;
+			});
+
+			var index = $container.find(':input').length;
+			if(index == 0){
+				addCategory($container);
+			}else{
+				$container.children('div').each(function(){
+		  			addRemoveLink($(this));
+				});
+			}
+			
+			function addCategory($container){
+				var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Catégorie n°' + (index+1))
+		        	                                            	.replace(/__name__/g, index));
+				addRemoveLink($prototype);
+				$container.append($prototype);
+				index++;
+			}
+
+			function addRemoveLink($prototype){
+				$removeLink = $('<a href="#">Supprimer</a>');
+				$prototype.append($removeLink);
+				$removeLink.click(function(e){
+		  			$prototype.remove();
+		  			e.preventDefault();
+		  			index--;
+		  			return false;
+				});
+			}
+	});
+</script>

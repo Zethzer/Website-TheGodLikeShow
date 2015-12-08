@@ -1,0 +1,111 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+	Ajouter une news - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+	<h2>Ajouter une News</h2>
+
+	<form action="{{ path('zethzer_news_add') }}" method="post" {{ form_enctype(form) }} class="form-horizontal col-md-12">
+		<div class="form-group row">
+	  		{{ form_label(form.titre, "Titre", {'label_attr': {'class': 'col-md-3'}}) }}
+	  		{{ form_errors(form.titre) }}
+			<div class="col-md-9">
+				{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+			</div>
+		</div>
+		<div class="form-group row">
+	  		{{ form_label(form.contenu, "Ecrivez votre news", {'label_attr': {'class': 'col-md-3'}}) }}
+	  		{{ form_errors(form.contenu) }}
+	  		<div class="col-md-9">
+				{{ form_widget(form.contenu,{'attr': {'cols': '75', 'rows': '25', 'class': 'textarea form-control'}}) }}
+			</div>
+		</div>
+		<div class="form-group row">
+	  		{{ form_label(form.type, "Type de la news", {'label_attr': {'class': 'col-md-3'}}) }}
+	  		{{ form_errors(form.type) }}
+	  		<div class="col-md-9 radioField">
+				{{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form_label(form.image, "Image", {'label_attr': {'class': 'col-md-3'}}) }}
+			<div class="col-md-9">
+				{{ form_widget(form.image, {'attr': {'class': 'form-control input-file'}}) }}
+			</div>
+		</div>
+		<hr>
+			<div class="help-block"><span class="glyphicon glyphicon-warning-sign"></span> Taille des images&nbsp;:&nbsp;
+				<ul>
+					<li>News importantes & normales&nbsp;:&nbsp;330x45 pixels.</li>
+					<li>News pour slider&nbsp;:&nbsp;670x300 pixels.</li>
+				</ul>
+			</div>
+		<hr>
+		<div class="form-group row">
+	  		{{ form_label(form.categories, "Catégories", {'label_attr': {'class': 'col-md-3'}}) }}
+	  		{{ form_errors(form.categories) }}
+	  		<div class="col-md-9">
+				{{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+			</div>
+		</div>
+		<div class="form-group row">
+	  		{{ form_label(form.addCategories, "Ajout de catégories", {'label_attr': {'class': 'col-md-3'}}) }}
+	  		{{ form_errors(form.addCategories) }}
+	  		<div class="col-md-9">
+				{{ form_widget(form.addCategories) }}
+			</div>
+		</div>
+		{{ form_rest(form) }}
+		<button type="submit" class="form-control btn btn-success" id="boutonFinal"><span class="glyphicon glyphicon-ok"></span> Poster</button>
+	</form>
+	
+<script>
+	$('#zethzer_newsbundle_news_contenu').wysihtml5({
+		"lists": false
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+			var $container = $('div#zethzer_newsbundle_news_addCategories');
+
+			var $addLink = $('<a href="#" class="btn btn-primary addButton" id="add_category"><span class="glyphicon glyphicon-plus"></span>  Ajouter une catégorie</a>');
+			$container.append($addLink);
+
+			$addLink.click(function(e){
+				addCategory($container);
+				e.preventDefault();
+				return false;
+			});
+
+			var index = $container.find(':input').length;
+			if(index == 0){
+				addCategory($container);
+			}else{
+				$container.children('div').each(function(){
+		  			addRemoveLink($(this));
+				});
+			}
+			
+			function addCategory($container){
+				var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, '<h4>Catégorie n°' + (index+1) + '</h4>')
+		        	                                            	.replace(/__name__/g, index));
+				addRemoveLink($prototype);
+				$container.append($prototype);
+				index++;
+			}
+
+			function addRemoveLink($prototype){
+				$removeLink = $('<a href="#" class="btn btn-danger removeButton"><span class="glyphicon glyphicon-minus"></span> Supprimer</a>');
+				$prototype.append($removeLink);
+				$removeLink.click(function(e){
+		  			$prototype.remove();
+		  			e.preventDefault();
+		  			index--;
+		  			return false;
+				});
+			}
+	});
+</script>
+{% endblock %}

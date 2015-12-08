@@ -1,0 +1,19 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer une news - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+    <h2>Supprimer une news</h2>
+
+    <p>
+        Etes-vous sûr de vouloir supprimer la news "{{ new.titre }}" ?
+    </p>
+
+    <form action="{{ path('zethzer_news_delete', {'slug': new.slug}) }}" method="post">
+        <a href="{{ path('zethzer_news_display', {'slug': new.slug}) }}" class="btn btn-warning" id="boutonSupprimerRetour"><span class="glyphicon glyphicon-import"></span> Retour à l'article</a>
+        <button type="submit" class="form-control btn btn-danger" id="boutonSupprimer"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+        {{ form_rest(form) }}
+    </form>
+{% endblock %}

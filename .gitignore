@@ -36,6 +36,9 @@
 # Composer PHAR
 /composer.phar
 
+# Vendor
+/vendor/*
+
 # =========================
 # Operating System Files
 # =========================

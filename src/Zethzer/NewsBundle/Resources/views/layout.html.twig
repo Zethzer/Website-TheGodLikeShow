@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	{% for message in app.session.flashbag.get('info') %}
+   		<div class="alert alert-info" style="margin-top:5px;">
+			<span class="glyphicon glyphicon-info-sign"></span> {{ message }}
+		</div>
+	{% endfor %}
+
+	{% block zethzernews_body %}
+	{% endblock %}
+{% endblock %}

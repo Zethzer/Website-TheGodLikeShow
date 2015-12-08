@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    Erreur - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<h2>Erreur ! Are U mad ?</h2>
+	<hr>
+	<div class="alert alert-info" style="margin-top:5px;">
+    	<p>
+    		Ha ! Ha ! T'as pas le droit d'&ecirc;tre ici. Tu le sais &ccedil;a?<br /><br />
+    		Le serveur a effectivement communiqu&eacute; l'erreur <strong>{{ status_code }}</strong> qui prouve bien que tu as rien à faire ici !
+    	</p>
+    </div>
+{% endblock %}

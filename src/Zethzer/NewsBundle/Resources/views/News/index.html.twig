@@ -1,0 +1,107 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+	Accueil - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+	<img src="{{ asset('img/Ressources/accueil_barre.png') }}" />
+		
+	{% if newsSlide %}
+		<section id="newsCarousel">
+			<div id="myCarousel" class="carousel slide">
+				<ol class="carousel-indicators">
+					{% for newSlide in newsSlide %}
+						<li data-target="#myCarousel" data-slide-to="{{ loop.index0 }}"{% if loop.first %} class="active"{% endif %}></li>
+					{% endfor %}
+				</ol>
+				
+				<!-- Carousel items -->
+					<div class="carousel-inner">
+						{% for newSlide in newsSlide %}
+							<div  class="{% if loop.first %}active{% endif %} item">
+								{% if newSlide.date > date('-7days') %}
+									<img class="slideNouveauteBandeau" src="{{ asset('img/Ressources/accueil/nouveautes/nouveaute_bandeau.png') }}" alt="Nouveauté" />
+								{% endif %}
+								<a href="{{ path('zethzer_news_display', {'slug':newSlide.slug}) }}">
+									<img class="slideImage" src="{{ asset(newSlide.image.webPath) }}" alt="{{ newSlide.image.alt }}" />
+								</a>
+								<div class="slideTexte">
+									<h3>
+										<a href="{{ path('zethzer_news_display', {'slug':newSlide.slug}) }}">{{ newSlide.titre }}</a>
+									</h3>
+									<p>{{ newSlide.contenu|raw|striptags[:50] ~ "..." }}</p>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+
+				<!-- Carousel nav -->
+				<a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"><span/></a>
+				<a class="carousel-control right" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"><span/></a>
+			</div>
+		</section>
+	{% else %}
+		<p>Pas (encore !) de news sur le slide</p>
+	{% endif %}
+
+	<img src="{{ asset('img/Ressources/actualites_barre.png') }}" />
+	<div class="row">
+		{% for newImportant in newsImportant %}
+			<section class="col-md-6 newsArticle">
+				<p class="newsDate">{{ newImportant.date|localizeddate('long','none') }}</p>
+				<p><img src="{{ asset('img/Ressources/accueil/news/soulignage.png') }}" /></p>
+				<h4 class="newsTitle"><a href="{{ path('zethzer_news_display', {slug:newImportant.slug}) }}">{{ newImportant.titre }}</a></h4>
+				<p><img class="newsImage" src="{{ asset(newImportant.image.webPath) }}" alt="{{ newImportant.image.alt }}" width="334" height="44"/></p>
+				{% set newsContenu = newImportant.contenu[:350] ~ "..." %}
+				<p class="newsContenu">{{ newsContenu|raw|nl2br }}</p>
+				<p class="row">
+					<span class="lireSuite col-md-12" style="background:url('{{ asset('img/Ressources/accueil/news/soulignage2.png') }}') no-repeat center; text-align:center; width:100%;">
+						<a href="{{ path('zethzer_news_display', {'slug':newImportant.slug}) }}">Lire la suite</a>
+					</span>
+				</p>
+				<p class="commentairesLien">Commentaires ({% set compte = 0 %}{% for comC in comCount if comC == newImportant.id %}{% set compte = compte + 1 %}{% endfor %}{{ compte }})</p>
+			</section>
+		{% else %}
+			<p>Pas (encore !) de news importantes</p>
+		{% endfor %}
+	</div>
+	<img src="{{ asset('img/Ressources/accueil/news/separateur.png') }}" />
+	<div class="row">
+		{% for new in news %}
+			<section class="col-md-6 newsArticle">
+				<p class="newsDate">{{ new.date|localizeddate('long','none') }}</p>
+				<p><img src="{{ asset('img/Ressources/accueil/news/soulignage.png') }}" /></p>
+				<h4 class="newsTitle"><a href="{{ path('zethzer_news_display', {slug:new.slug}) }}">{{ new.titre }}</a></h4>
+				<p><img class="newsImage" src="{{ asset(new.image.webPath) }}" alt="{{ new.image.alt }}" width="334" height="44" /></p>
+				{% set newsContenu = new.contenu[:350] ~ "..." %}
+				<p class="newsContenu">{{ newsContenu|raw|nl2br }}</p>
+				{% if newsContenu|length > 350 %}
+					<p class="row">
+						<span class="lireSuite col-md-12" style="background:url('{{ asset('img/Ressources/accueil/news/soulignage2.png') }}') no-repeat center; text-align:center; width:100%;">
+							<a href="{{ path('zethzer_news_display', {'slug':new.slug}) }}">Lire la suite</a>
+						</span>
+					</p>
+				{% endif %}
+				<p class="commentairesLien">Commentaires ({% set compte = 0 %}{% for comC in comCount if comC == new.id %}{% set compte = compte + 1 %}{% endfor %}{{ compte }})</p>
+			</section>
+		{% else %}
+			<p>Pas (encore !) de news</p>
+		{% endfor %}
+	</div>
+
+	{% if nbPage > 1 %}
+		<div>
+			<ul class="pagination">
+				{% for p in range(1, nbPage) %}
+					<li>
+						<a href="{{ path('zethzer_news_homepage', {'page': p}) }}">{{ p }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	
+	<script src="{{ asset('bootstrap/js/carousel.js') }}"></script>
+	
+{% endblock %}

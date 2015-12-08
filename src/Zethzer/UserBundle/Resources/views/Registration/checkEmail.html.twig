@@ -1,0 +1,13 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+  S'inscrire - {{ parent() }}
+{% endblock %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block zethzernews_body %}
+<h2>S'inscrire</h2>
+<hr />
+    <p><span class="glyphicon glyphicon-info-sign"></span> {{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+{% endblock zethzernews_body %}

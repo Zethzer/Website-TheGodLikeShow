@@ -1,0 +1,24 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h2>Récupérer son mot de passe</h2>
+<hr />
+<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+		<div class="form-group row">
+		{{ form_label(form.plainPassword.first, "Nouveau mot de passe", {'label_attr': {'class': 'col-md-3'}}) }}
+		{{ form_errors(form.plainPassword.first) }}
+		<div class="col-md-9">
+			{{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(form.plainPassword.second, "Vérification", {'label_attr': {'class': 'col-md-3'}}) }}
+		{{ form_errors(form.plainPassword.second) }}
+		<div class="col-md-9">
+			{{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	{{ form_rest(form) }}
+	<div class="row">
+		<button type="submit" class="form-control btn btn-success" id="boutonFinalResetMDP"><span class="glyphicon glyphicon-ok col-md-3"></span> Reinitialiser</button>
+	</div>
+</form>

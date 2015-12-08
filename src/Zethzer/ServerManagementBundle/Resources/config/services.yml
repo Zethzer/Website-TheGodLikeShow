@@ -1,0 +1,7 @@
+parameters:
+#    zethzer_server_management.example.class: Zethzer\ServerManagementBundle\Example
+
+services:
+#    zethzer_server_management.example:
+#        class: %zethzer_server_management.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,44 @@
+zethzer_news_homepage:
+    path:  /{page}
+    defaults: { _controller: ZethzerNewsBundle:News:index, page: 1 }
+    requirements:
+        page: \d*
+
+zethzer_news_display:
+    path: /{slug}
+    defaults: { _controller: ZethzerNewsBundle:News:display }
+
+zethzer_news_add:
+    path: /news/ajouter
+    defaults: { _controller: ZethzerNewsBundle:News:add }
+
+zethzer_news_modify:
+    path: /news/modifier/{slug}
+    defaults: { _controller: ZethzerNewsBundle:News:modify }
+
+zethzer_news_delete:
+    path: /news/supprimer/{slug}
+    defaults: { _controller: ZethzerNewsBundle:News:delete }
+
+zethzer_news_add_commentaire:
+    path: /commentaire/ajouter/{id}
+    defaults: { _controller: ZethzerNewsBundle:News:addCommentaire }
+    methods: POST
+    requirements:
+        id: \d+
+
+zethzer_news_modify_commentaire:
+    path: /commentaire/modifier/{id}
+    defaults: { _controller: ZethzerNewsBundle:News:modifyCommentaire }
+    requirements:
+        id: \d+
+
+zethzer_news_delete_commentaire:
+    path: /commentaire/supprimer/{id}
+    defaults: { _controller: ZethzerNewsBundle:News:deleteCommentaire }
+    requirements:
+        id: \d+
+
+zethzer_news_contact:
+    path: /support/contact
+    defaults: { _controller: ZethzerNewsBundle:News:contact }

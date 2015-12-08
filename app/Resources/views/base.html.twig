@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}The GodLikeShow{% endblock %}</title>
+        {% block stylesheets %}
+			<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+			<link href="{{ asset('wysihtml5/src/bootstrap-wysihtml5.css') }}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('wysihtml5/lib/css/bootstrap3-wysiwyg5-color.css') }}" rel="stylesheet" type="text/css" />
+			
+			<link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+			<link href="{{ asset('css/base.css') }}" rel="stylesheet" />
+			<link href="{{ asset('css/carousel.css') }}" rel="stylesheet" />
+			<link href="{{ asset('css/formulaire.css') }}" rel="stylesheet" />
+			<link href="{{ asset('css/news.css') }}" rel="stylesheet" />
+		{% endblock %}
+		<script src="{{ asset('bootstrap/js/jquery-1.11.1.min.js') }}"></script>
+		<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('wysihtml5/lib/js/wysihtml5-0.3.0.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('wysihtml5/src/bootstrap3-wysihtml5.js') }}" type="text/javascript"></script>
+		
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+		<div class="container">
+			<header id="barreHaut">
+				<div id="barreHautContenu" class="row">
+					<div class="iconGroup">
+						<a href="https://www.youtube.com/user/godlikeshow"><img src="{{ asset('img/Ressources/header_barre/youtube.png') }}" /></a>
+						{# <a href="#"><img src="{{ asset('img/Ressources/header_barre/rss.png') }}" /></a> #}
+						<a href="https://twitter.com/TheGodLikeShow"><img src="{{ asset('img/Ressources/header_barre/twitter.png') }}" /></a>
+						<a href="https://www.facebook.com/TheGodLikeShow"><img src="{{ asset('img/Ressources/header_barre/facebook.png') }}" /></a>
+					</div>
+					{# <form id="searchForm" class="col-md-7">
+						<div class="input-group">
+							<input id="rechercher" name="rechercher" class="form-control input-sm" placeholder="Rechercher..." type="text">
+							<span class="input-group-addon glyphicon glyphicon-search"></span>
+						</div>
+					</form> #}
+				</div>
+			</header>
+			
+			<nav class="row" id="navigationBarre">
+				<div class="col-md-10 col-md-offset-1" id="barreConteneur">
+					<img src="{{ asset('img/Ressources/header/menu_bar.png') }}" id="barre" />
+					<span class="navtext"><a href="{{path('zethzer_news_homepage', {'page':1})}}">Accueil</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="https://www.youtube.com/user/godlikeshow">Videos</a></span>
+					<a href="{{path('zethzer_news_homepage', {'page':1})}}"><img src="{{ asset('img/Ressources/header/logo.png') }}" alt="LOGO" id="logo" /></a>
+					<span class="navtext navtext2"><a href="http://www.twitch.tv/godlikeshow">Stream</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="{{path('zethzer_news_contact')}}">Contact</a></span>
+				</div>
+			</nav>
+
+			<div class="row">
+				<div class="col-md-12" id="baseConteneur">
+					<div class="row">
+						<section class="col-md-2" id="menuGauche">
+							<div class="row">
+								<section class="col-md-12">
+									<img src="{{ asset('img/Ressources/menu_gauche/barre_full_serveurs.png') }}" /><br />
+									<a href="{{ path('zethzer_server_management_minecraft') }}"><img src="{{ asset('img/Ressources/menu_gauche/serveurs_image.png') }}" /></a>
+								</section>
+							</div>
+							<div class="row">
+								<section class="col-md-12">
+									<img src="{{ asset('img/Ressources/menu_gauche/barre_full_forum.png') }}" /><br />
+									<a href="{{ path('zethzer_forum_homepage')}}"><img src="{{ asset('img/Ressources/menu_gauche/forum_image.png') }}" /></a>
+								</section>
+							</div>
+							<div class="row">
+								<section class="col-md-12">
+									<img src="{{ asset('img/Ressources/menu_gauche/ts3_full_barre.png') }}" /><br />
+									<iframe allowtransparency="true" src="http://ts.thegodlikeshow.fr/tsviewpub.php?skey=0&port=10139&showicons=right&bgcolor=ffffff&fontcolor=000000" style="height:512px;width:100%" frameborder="0">Votre navigateur ne peut pas afficher ce widget</iframe>
+								</section>
+							</div>
+						</section>
+						
+						<section class="col-md-7" id="centre">
+							{% block body %}{% endblock %}
+						</section>
+						
+						<section class="col-md-2" id="menuDroite">
+							<div>
+								<section>
+									<img src="{{ asset('img/Ressources/menu_droite/compte_barre.png') }}" /><br />
+									
+									{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+										Salut, {{ app.user.username }}.
+										<!-- Menu -->
+										<div class="btn-group-vertical">
+											{% if is_granted('ROLE_ADMIN') %}
+												<a class="btn btn-primary" href="{{ path('zethzer_news_add') }}"><span class="glyphicon glyphicon-list-alt"></span> Rédiger une news</a>
+												<a class="btn btn-primary" href="{{ path('zethzer_contest_homepage') }}"><span class="glyphicon glyphicon-plus"></span> Créer un tournoi</a>
+											{% endif %}
+											<a class="btn btn-default" href="{{ path('zethzer_contest_homepage') }}"><span class="glyphicon glyphicon-calendar"></span> Inscription à un tournoi</a>
+											<a class="btn btn-default" href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-pencil"></span> Editer votre profil</a>
+											<a class="btn btn-default" href="{{ path('zethzer_contest_homepage') }}"><span class="glyphicon glyphicon-plus"></span> Créer une équipe<br /><span class="glyphicon glyphicon-pencil"></span> Modérer une équipe</a>
+											<a class="btn btn-default" href="{{ path('zethzer_contest_homepage') }}"><span class="glyphicon glyphicon-search"></span> Rechercher<br /> une équipe/un joueur</a>
+											{% if is_granted('ROLE_ADMIN') %}
+												<a class="btn btn-default disabled"><span class="glyphicon glyphicon-user"></span> Attribuer un rôle</a>
+												<a class="btn btn-default disabled" id="boutonSupprimerCompte"><span class="glyphicon glyphicon-minus"></span> Supprimez/Désactivez <br />un compte</a>
+											{% endif %}
+										</div>
+										<a href="{{ path('fos_user_security_logout') }}" class="btn btn-danger" id="boutonDeconnexion"><span class="glyphicon glyphicon-log-out"></span> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+										
+									{% else %}
+										{% render(controller('ZethzerUserBundle:Security:login')) %}
+										<p>
+											<a class="form-control btn btn-default" href={{ path('fos_user_registration_register') }} style="margin-top:5px;">S'inscrire</a>
+											<a href={{ path('fos_user_resetting_request') }} style="margin-top:5px;">Mot de passe oublié ?</a>
+										</p>
+									{% endif %}
+									
+								</section>
+							</div>
+							{# <div class="row">
+								<section class="col-md-12">
+									<img src="{{ asset('img/Ressources/menu_droite/partenaires_barre.png') }}" />
+									<div class="row">
+										<section class="col-md-12">
+											<img src="{{ asset('img/Ressources/menu_droite/partenaires_image.png') }}" />
+										</section>
+									</div>
+									<div class="row">
+										<section class="col-md-12">
+											<img src="{{ asset('img/Ressources/menu_droite/partenaires_image.png') }}" />
+										</section>
+									</div>
+									<div class="row">
+										<section class="col-md-12">
+											<img src="{{ asset('img/Ressources/menu_droite/partenaires_image.png') }}" />
+										</section>
+									</div>
+								</section>
+							</div> #}
+							<div class="row">
+								<section class="col-md-12">
+									<img src="{{ asset('img/Ressources/menu_droite/facebook_barre.png') }}" /><br />
+									<div id="fb-root"></div>
+									<div class="fb-like-box" data-href="https://www.facebook.com/TheGodLikeShow" data-width="100%" data-height="100%" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="false" data-show-border="false"></div>
+								</section>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div id="footerStyle" class="row">
+				<p><h4>&copy; Design par Yuza - D&eacute;velopp&eacute; par Duality Workshop : Zethzer - Symfony 2 et Linkyu - Twig/CSS avec Bootstrap</h4></p>
+			</div>
+		</footer>
+        {% block javascripts %}
+		<script>
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+		{% endblock %}
+    </body>
+</html>

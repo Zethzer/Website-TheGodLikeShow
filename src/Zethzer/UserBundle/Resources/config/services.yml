@@ -1,0 +1,7 @@
+parameters:
+#    zethzer_user.example.class: Zethzer\UserBundle\Example
+
+services:
+#    zethzer_user.example:
+#        class: %zethzer_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

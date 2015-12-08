@@ -1,0 +1,99 @@
+#barreHaut {
+	background-color:#333; 
+	position:absolute; 
+	width:100%; 
+	left:0px; 
+	height:40px; 
+	color:white;
+}
+
+#barreHautContenu {
+	float: left;
+	padding-left: 20px;
+	padding-top: 5px;
+}
+
+#searchForm {
+	display:inline;
+}
+
+.iconGroup {
+	margin-top: -5px;
+}
+
+#navigationBarre {
+	padding-top: 40px;
+}
+
+#barreConteneur {
+	height:190px;
+}
+
+#barre {
+	position: absolute; 
+	top:80px; 
+	left:20px; 
+	z-index: 1;
+}
+
+#logo {
+	position: absolute; 
+	left:28%; 
+	z-index: 2;
+}
+
+.navtext {
+	color: white;
+	font-family: "Times New Roman";
+	font-size: 2em;
+	position: absolute;
+	top: 75px;
+	left: 60px;
+	z-index: 2;
+}
+
+.navtext2 {
+	left: 710px;
+}
+
+.navtext a {
+	color:white;
+}
+
+.navtext a:hover {
+	text-decoration: none;
+	text-shadow:0px 0px 5px white;
+}
+
+#baseConteneur {
+	min-width:1170px;  
+	box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75); 
+	overflow:hidden;
+	background-color: white
+}
+
+#menuGauche {
+	height:100%;
+}
+
+#centre {
+	min-width:720px; 
+	box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+	overflow:hidden;
+}
+
+#menuDroite, #menuGauche {
+	min-width:220px;
+}
+
+#boutonDeconnexion, .boutonConnexion {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#footerStyle {
+	margin-top:20px;
+	background-color:#333;
+	color:white;
+	text-align:center;
+}

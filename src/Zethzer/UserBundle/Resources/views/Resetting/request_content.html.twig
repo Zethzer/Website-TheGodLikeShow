@@ -1,0 +1,16 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h2>Récupérer son mot de passe</h2>
+<hr />
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    {% if invalid_username is defined %}
+		<p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+	{% endif %}
+	<div class="form-group">
+        <label for="username">{{ 'resetting.request.username'|trans }}</label>
+        <input class="form-control" type="text" id="username" name="username" required="required" />
+    </div>
+    <div class="row">
+		<button type="submit" class="btn btn-success" id="boutonFinalResetMDP"><span class="glyphicon glyphicon-ok"></span> Confirmer</button>
+	</div>
+</form>

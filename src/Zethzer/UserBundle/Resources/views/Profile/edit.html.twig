@@ -1,0 +1,14 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+  Editer le profil - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+{% include "ZethzerUserBundle:Profile:edit_content.html.twig" %}
+
+	<p>
+		<a href="{{ path('fos_user_change_password') }}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Modifier le mot de passe</a>
+	</p>
+
+{% endblock zethzernews_body %}

@@ -1,0 +1,23 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un commentaire - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+  <h2>Supprimer un commentaire</h2>
+  
+  <p>
+    Etes-vous sûr de vouloir supprimer le commentaire suivant ?
+  </p>
+
+  <div id="commentairePreview">
+    {{ commentaire.contenu|raw|nl2br }}
+  </div>
+
+  <form action="{{ path('zethzer_news_delete_commentaire', {'id': commentaire.id}) }}" method="post">
+    <a href="{{ path('zethzer_news_display', {'slug': commentaire.article.slug}) }}" class="btn btn-warning" id="boutonSupprimerRetour"><span class="glyphicon glyphicon-import"></span> Retour à l'article</a>
+    <button type="submit" class="form-control btn btn-danger" id="boutonSupprimer"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+    {{ form_rest(form) }}
+  </form>
+{% endblock %}

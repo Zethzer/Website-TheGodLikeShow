@@ -1,0 +1,3 @@
+zethzer_contest_homepage:
+    path:     /tournoi
+    defaults: { _controller: ZethzerContestBundle:Contest:index }

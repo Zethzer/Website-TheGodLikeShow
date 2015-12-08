@@ -1,0 +1,7 @@
+parameters:
+    zethzernews.nbperpage: 4
+
+services:
+#    zethzer_news.example:
+#        class: %zethzer_news.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

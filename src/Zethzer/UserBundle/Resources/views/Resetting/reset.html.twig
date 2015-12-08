@@ -1,0 +1,9 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+  Récupération de mot de passe - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+{% include "ZethzerUserBundle:Resetting:reset_content.html.twig" %}
+{% endblock zethzernews_body %}

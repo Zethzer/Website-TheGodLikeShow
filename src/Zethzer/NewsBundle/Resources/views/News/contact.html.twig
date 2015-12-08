@@ -1,0 +1,45 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+	Contact - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+<h2>Contact</h2>
+<hr>
+
+<form action="{{ path('zethzer_news_contact') }}" method="post" {{ form_enctype(form) }} class="form col-md-12">	
+	<div class="form-group row">
+		{{ form_errors(form.email) }}
+		{{ form_label(form.email, "Email", {'label_attr': {'class': 'col-md-3'}}) }}
+		<div class="col-md-9">
+			{{ form_widget(form.email, { 'attr':{'class': 'form-control'}}) }}
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		{{ form_errors(form.subject) }}
+		{{ form_label(form.subject, "Sujet", {'label_attr': {'class': 'col-md-3'}}) }}
+		<div class="col-md-9">
+			{{ form_widget(form.subject, { 'attr':{'class': 'form-control' }}) }}
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		{{ form_errors(form.content) }}
+		{{ form_label(form.content, "Ecrivez votre message", {'label_attr': {'class': 'col-md-3'}}) }}
+		<div class="col-md-9">
+			{{ form_widget(form.content, { 'attr':{'cols': '75', 'rows': '10', 'class': 'textarea form-control'}}) }}
+		</div>
+	</div>
+	
+	{{ form_rest(form) }}
+	<button type="submit" class="form-control btn btn-success" id="boutonFinal"><span class="glyphicon glyphicon-circle-arrow-right"></span> Envoyer</button>
+</form>
+
+<script>
+	$('#zethzer_newsbundle_contact_content').wysihtml5({
+		"lists": false
+	});
+</script>
+{% endblock %}

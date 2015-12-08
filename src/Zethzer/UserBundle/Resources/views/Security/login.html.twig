@@ -1,0 +1,14 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+  Se connecter - {{ parent() }}
+{% endblock %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block zethzernews_body %}
+<h2>Se connecter</h2>
+<hr>
+	<div class="alert alert-info"><p><h4><span class="glyphicon glyphicon-info-sign"></span> Identifiant et/ou mot de passe incorrect(s)</h4></p></div>
+
+{% endblock zethzernews_body %}

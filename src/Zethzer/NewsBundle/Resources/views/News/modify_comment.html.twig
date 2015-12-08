@@ -1,0 +1,30 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+	Modifier un commentaire - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+	<h2>Modifier un commentaire</h2>
+
+	<form method="post" action="{{ path('zethzer_news_modify_commentaire', {'id': commentaire.id}) }}" class="form col-md-12">
+		<div class="form-group row">
+			{{ form_errors(form) }}
+			{{ form_label(form.contenu, "Contenu", {'label_attr': {'class': 'col-md-3'}}) }}
+			{{ form_errors(form.contenu) }}
+			<div class="col-md-9">
+				{{ form_widget(form.contenu,{'attr': {'rows': '5', 'class': 'textarea form-control'}}) }}
+			</div>
+		</div>
+		{{ form_rest(form) }}
+		<button type="submit" class="form-control btn btn-success" id="boutonFinal"><span class="glyphicon glyphicon-ok"></span> Modifier</button>
+	</form>
+
+	<p><a href="{{ path('zethzer_news_display', {'slug': commentaire.article.slug}) }}" class="btn btn-warning"><span class="glyphicon glyphicon-import"></span> Retour à l'article</a></p>
+
+	<script>
+		$('#zethzer_newsbundle_commentaire_contenu').wysihtml5({
+			"lists": false
+		});
+	</script>
+{% endblock %}

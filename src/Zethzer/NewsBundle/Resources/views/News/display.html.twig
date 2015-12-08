@@ -1,0 +1,87 @@
+{% extends "ZethzerNewsBundle::layout.html.twig" %}
+
+{% block title %}
+	{{ news.titre }} - {{ parent() }}
+{% endblock %}
+
+{% block zethzernews_body %}
+	<div class="newsDisplay">
+		{% if is_granted('ROLE_NEWSER') %}
+			<div class="btn-group" id="groupeBoutonsNews">
+				<a href="{{ path('zethzer_news_modify', {'slug':news.slug}) }}" class="btn btn-success" id="boutonModifierNews"><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
+				<a href="{{ path('zethzer_news_delete', {'slug':news.slug}) }}" class="btn btn-danger" id="boutonSupprimerNews"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+			</div>
+		{% endif %}
+		
+		<h3>{{ news.titre }}</h3>
+		<img src="{{ asset(news.image.webPath) }}" alt="{{ news.image.alt }}" />
+		<p class="newsDate">Posté le&nbsp;:&nbsp;{{ news.date|localizeddate('long', 'none') }} 
+															&nbsp;&mdash;&nbsp;Par {{ news.user }}
+			{% if news.dateEdition is not null %}
+				&nbsp;&mdash;&nbsp;Modifié le&nbsp;:&nbsp;{{ news.dateEdition|date('d/m/Y – H:i') }} par {{ news.userModif }}
+			{% endif %}
+		</p>
+		<p class="contenu">{{ news.contenu|raw|nl2br }}</p>
+
+		<p class="buffet-shrimp" id="tags">
+			<span id="tagsLabel">Catégories&nbsp;:&nbsp;</span>
+			
+			{% for categorie in news.categories %}
+				<span class="badge">{{ categorie.nom }}</span>
+			{% else %}
+				Pas de catégories.
+			{% endfor %}
+		</p>
+	</div>
+
+	<hr />
+	
+	<!-- Commentaires -->
+	<div>
+		<h3>Commentaires</h3>
+		{% for commentaire in commentaires %}
+			<div class="blocCommentaire">
+				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+					{% if (userCo == commentaire.user.id) or is_granted('ROLE_ADMIN') %}
+						<div class="btn-group groupeBoutonsCommentaire">
+							<a href="{{ path('zethzer_news_modify_commentaire', {'id':commentaire.id}) }}" class="btn btn-success" id="boutonModifierNews"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a href="{{ path('zethzer_news_delete_commentaire', {'id':commentaire.id}) }}" class="btn btn-danger" id="boutonSupprimerNews"><span class="glyphicon glyphicon-trash"></span></a>
+						</div>
+					{% endif %}
+				{% endif %}
+				<p class="dateCommentaire">Posté le &nbsp;:&nbsp;{{ commentaire.date|localizeddate('long', 'none') }}&nbsp;&mdash;&nbsp;Par {{ commentaire.user }}
+					{% if commentaire.dateEdition is not null %}
+						&nbsp;&mdash;&nbsp;Modifié le&nbsp;:&nbsp;{{ commentaire.dateEdition|date('d/m/Y – H:i') }}
+					{% endif %}
+				</p>
+				<p>{{ commentaire.contenu|raw|nl2br }}</p>			
+			</div>
+		{% else %}
+			<p>Pas encore de commentaire.</p>
+		{% endfor %}
+
+		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+			<h3>Poster un nouveau commentaire</h3>
+			<form method="post" action="{{ path('zethzer_news_add_commentaire', {'id': news.id}) }}" class="form col-md-12">
+				<div class="form-group row">
+					{{ form_errors(form) }}
+					{{ form_label(form.contenu, "Contenu", {'label_attr': {'class': 'col-md-3'}}) }}
+					{{ form_errors(form.contenu) }}
+					<div class="col-md-9">
+						{{ form_widget(form.contenu,{'attr': {'rows': '5', 'class': 'textarea form-control'}}) }}
+					</div>
+				</div>
+				{{ form_rest(form) }}
+				<button type="submit" class="form-control btn btn-success" id="boutonFinal"><span class="glyphicon glyphicon-ok"></span> Poster</button>
+			</form>
+		{% else %}
+			<p>Veuillez vous connectez pour poster un commentaire.</p>
+		{% endif %}
+	</div>
+	
+<script>
+	$('#zethzer_newsbundle_commentaire_contenu').wysihtml5({
+		"lists": false
+	});
+</script>
+{% endblock %}

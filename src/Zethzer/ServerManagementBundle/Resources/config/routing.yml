@@ -1,0 +1,3 @@
+zethzer_server_management_minecraft:
+    path:     /server/minecraft
+    defaults: { _controller: ZethzerServerManagementBundle:ServerManagement:minecraft }
